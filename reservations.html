@@ -32,7 +32,7 @@
                         <strong>Current Reservations</strong>
                     </h3>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body" id="arrayResults">
                     <div class="well">
                         <span class="label label-primary label-lg">1</span> 
                         <h3>
@@ -56,4 +56,12 @@
             </div>
         </div>
     </div>
+    <script>
     
+    $.get("/reslist", function(data){
+        console.log(data);
+    for (var i = 0; i < data.length; i++) {
+        $("#arrayResults").append(" <div class='well'>" + data[i].name + "</div>" );
+    }
+    });
+    </script>
