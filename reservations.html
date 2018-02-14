@@ -6,7 +6,6 @@
     <title>Reservations</title>
     <!-- Latest compiled and minified CSS & JS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="./style.css">
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </head>
@@ -33,13 +32,7 @@
                     </h3>
                 </div>
                 <div class="panel-body" id="arrayResults">
-                    <div class="well">
-                        <span class="label label-primary label-lg">1</span> 
-                        <h3>
-                            <strong> | </strong>
-                            <span class="reservation"></span>
-                        </h3>
-                    </div>
+                    
                 </div>
             </div>
 
@@ -49,19 +42,33 @@
                         <strong>Wait List</strong>
                     </h3>
                 </div>
-                <div class="panel-body">
-                    <div class="well">
-                    </div>
+                <div class="panel-body" id="waitList">
+                    
                 </div>
             </div>
         </div>
     </div>
     <script>
-    
-    $.get("/reslist", function(data){
-        console.log(data);
-    for (var i = 0; i < data.length; i++) {
-        $("#arrayResults").append(" <div class='well'>" + data[i].name + "</div>" );
-    }
-    });
+
+        $.get("/api/resList", function (data) {
+            var reserveList = data.reservationList;
+            var waitList = data.waitList;
+            var resCount = 1;
+            var waitCount = 1;
+            console.log(reserveList);
+            console.log(waitList);
+
+            for(var i=0; i < reserveList.length; i++){
+                console.log("run");
+                $("#arrayResults").append("<div class='well'><span class='label label-primary label-lg'>" + resCount + "</span><strong> | </strong><span class='reservation'>" + reserveList[i].uniqueID + "</span></div>");
+                resCount++;
+            }
+            for(var i=0; i < waitList.length; i++){
+                $("#waitList").append("<div class='well'><span class='label label-primary label-lg'>" + waitCount + "</span><strong> | </strong><span class='reservation'>" + waitList[i].uniqueID + "</span></div>");
+                waitCount++;
+            }
+            
+        });
+
+        
     </script>
