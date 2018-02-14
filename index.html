@@ -6,7 +6,6 @@
     <title>Hot Restaurant</title>
     <!-- Latest compiled and minified CSS & JS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="./style.css">
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </head>
@@ -47,17 +46,17 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="role">Phone Number</label>
+                        <label for="email">Email</label>
                         <input type="text" class="form-control" id="email">
                     </div>
 
                     <div class="form-group">
-                        <label for="age">Age</label>
+                        <label for="phone">Phone Number</label>
                         <input type="text" class="form-control" id="phone">
                     </div>
 
                     <div class="form-group">
-                        <label for="force-points">Unique ID</label>
+                        <label for="unique-id">Unique ID</label>
                         <input type="text" class="form-control" id="id">
                     </div>
 
@@ -73,20 +72,31 @@
 
     <script type="text/javascript">
 
-        $("#add-btn").on("click", function(event) {
-          event.preventDefault();
-          var newReservation = {
-            name: $("#name").val().trim(),
-            email: $("#email").val().trim(),
-            phone: $("#phone").val().trim(),
-            uniqueID: $("#id").val().trim()
-          };
-    
-          $.post("/api/new", newReservation)
-          .then(function(data) {
-            console.log(data);
-            alert("You're In!");
-          });
+        $("#add-btn").on("click", function (event) {
+            event.preventDefault();
+            var newReservation = {
+                name: $("#name").val().trim(),
+                email: $("#email").val().trim(),
+                phone: $("#phone").val().trim(),
+                uniqueID: $("#id").val().trim()
+            };
+
+            $.post("/api/new", newReservation)
+            .then(function (data) {
+                if (data) {
+                    alert("You're In!");
+                }
+                else {
+                    alert("Sorry but you have been put on the Wait List.")
+                }
+                console.log(data);
+                $("#name").val("");
+                $("#email").val("");
+                $("#phone").val("");
+                $("#id").val("");
+            });
+
+
         });
     </script>
 
